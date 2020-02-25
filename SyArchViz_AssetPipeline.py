@@ -15,7 +15,7 @@ class SY_PT_realtime_archviz_asset_pipeline_ui(bpy.types.Panel):
     bl_idname = "ArchViz_AssetPipeline"
     bl_label = 'ArchViz | AssetPipeline'
     bl_space_type = 'VIEW_3D'
-    bl_region_type = 'TOOLS'
+    bl_region_type = 'UI'
 
     def __init__(self):
         pass
@@ -23,8 +23,8 @@ class SY_PT_realtime_archviz_asset_pipeline_ui(bpy.types.Panel):
     @classmethod
     def poll(self, context):
         try:
-            ob = context.active_object
-            mode = context.mode
+            # ob = context.active_object
+            # mode = context.mode
             return 1#(ob.type == 'MESH')
         except AttributeError:
             return 0
@@ -65,19 +65,19 @@ class SY_PT_realtime_archviz_asset_pipeline_ui(bpy.types.Panel):
         box.label(text='UV')
         col = box.column(align=True)
         row = col.row(align=True)
-        row.prop(context.window_manager, 'RunRewrapT', text = '', icon = 'TEXTURE_SHADED')
-        row.prop(context.window_manager, 'RunRewrapL', text = '', icon = 'LAMP_SUN')
+        row.prop(context.window_manager, 'RunRewrapT', text = '', icon = 'SHADING_TEXTURE')
+        row.prop(context.window_manager, 'RunRewrapL', text = '', icon = 'LIGHT_SUN')
         row.operator('object.sy_uv_full', text = 'Rewrap')
         row = col.row(align=True)
         row.prop(context.window_manager, 'RunIslands', text = '', icon = 'DOT')
-        row.prop(context.window_manager, 'RunIslands', text = '', icon = 'LAMP_SUN')
+        row.prop(context.window_manager, 'RunIslands', text = '', icon = 'LIGHT_SUN')
         row.operator('object.sy_uv_keep_groups', text = "UV from Islands")
         row = col.row(align=True)
-        row.prop(context.window_manager, 'RunPackT', text = '', icon = 'TEXTURE_SHADED')
-        row.prop(context.window_manager, 'RunPackL', text = '', icon = 'LAMP_SUN')
+        row.prop(context.window_manager, 'RunPackT', text = '', icon = 'SHADING_TEXTURE')
+        row.prop(context.window_manager, 'RunPackL', text = '', icon = 'LIGHT_SUN')
         row.operator('object.sy_uv_islands', text = 'Pack')
         row.prop(context.window_manager, 'PackSize', text = '')
-        row.prop(context.window_manager, 'PackRotate', text = '', icon = 'ZOOMOUT')
+        row.prop(context.window_manager, 'PackRotate', text = '', icon = 'ZOOM_OUT')
         row = col.row(align=True)
         row.operator('object.sy_beat_so_funny', text = 'This Beat Is so Funny...', icon = 'TRIA_RIGHT')
 
@@ -94,7 +94,7 @@ class SY_PT_realtime_archviz_asset_pipeline_ui(bpy.types.Panel):
         row = col.row(align=True)
         #row.prop(context.window_manager, 'RunExportFBX', text = '', icon = 'TRIA_DOWN')
         row.operator('object.sy_export_fbx', text = 'Export FBX')
-        row.prop(context.window_manager, 'ExportAnim', text = '', icon = 'POSE_DATA')
+        row.prop(context.window_manager, 'ExportAnim', text = '', icon = 'POSE_HLT')
 
 
 

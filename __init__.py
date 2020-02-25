@@ -1,15 +1,11 @@
-
 bl_info = {
     "name": "SyArchViz",
     "author": "SG at Raumgleiter AG",
+    "category": "Pillars of SY",
     "version": (1, 1, 0),
     "blender": (2, 80, 0),
-    "location": "View3D > Toolbar",
-    "description": "This addon holds tools to optimize the workflow in real time archviz.",
-    "warning": "",
-    "wiki_url": "",
-    "tracker_url": "",
-    "category": "Pillars of SY"}
+    "description": "This addon holds tools to optimize the workflow in real time archviz."
+    }
 
 if "bpy" in locals():
     import imp
@@ -18,7 +14,9 @@ if "bpy" in locals():
     imp.reload(SyArchViz_AssetPipeline)
     print("Reloaded SyArchViz")
 else:
-    from . import SyArchViz_Commands, SyArchViz_Tools, SyArchViz_AssetPipeline
+    from . import (SyArchViz_Commands,
+    SyArchViz_Tools,
+    SyArchViz_AssetPipeline)
     print("Imported SyArchViz")
 
 
@@ -29,7 +27,6 @@ from bpy.props import *
 # Register
 
 classes = (
-    SyArchViz_AssetPipeline.SY_PT_realtime_archviz_asset_pipeline_ui,
     SyArchViz_Commands.SY_OT_SyGolden,
     SyArchViz_Commands.SY_OT_SyBeatSoFunny,
     SyArchViz_Commands.SY_OT_SyEverythingAwesome,
@@ -53,21 +50,25 @@ classes = (
     SyArchViz_Commands.SY_OT_SyBuildingClean,
     SyArchViz_Commands.SY_OT_SyGetCurveLength,
     SyArchViz_Tools.SY_PT_realtime_archviz_ui,
+    SyArchViz_AssetPipeline.SY_PT_realtime_archviz_asset_pipeline_ui,
     )
 
-register, unregister = bpy.utils.register_classes_factory(classes)
+# register, unregister = bpy.utils.register_classes_factory(classes)
 
-# def register():
-#     bpy.utils.register_module(__name__)
-#
-#     SyArchViz_Tools.init_properties()
-#     SyArchViz_AssetPipeline.init_properties()
-#
-# def unregister():
-#     bpy.utils.unregister_module(__name__)
-#
-#     SyArchViz_Tools.clear_properties()
-#     SyArchViz_AssetPipeline.clear_properties()
+def register():
+    from bpy.utils import register_class
+    for cls in classes:
+        register_class(cls)
+    SyArchViz_Tools.init_properties()
+    SyArchViz_AssetPipeline.init_properties()
+
+def unregister():
+    from bpy.utils import unregister_class
+    for cls in reversed(classes):
+        unregister_class(cls)
+    SyArchViz_Tools.clear_properties()
+    SyArchViz_AssetPipeline.clear_properties()
+
 
 def draw_item(self, context):
     layout = self.layout
