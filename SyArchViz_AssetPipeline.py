@@ -1,4 +1,4 @@
-  
+
 import bmesh
 import bpy
 import mathutils
@@ -11,12 +11,12 @@ import os
 
 ##########################################################
 # draw UI ButtonS
-class realtime_archviz_asset_pipeline_ui(bpy.types.Panel):
+class SY_PT_realtime_archviz_asset_pipeline_ui(bpy.types.Panel):
     bl_idname = "ArchViz_AssetPipeline"
     bl_label = 'ArchViz | AssetPipeline'
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'TOOLS'
-    
+
     def __init__(self):
         pass
 
@@ -28,7 +28,7 @@ class realtime_archviz_asset_pipeline_ui(bpy.types.Panel):
             return 1#(ob.type == 'MESH')
         except AttributeError:
             return 0
-      
+
     def draw(self, context):
 
         layout = self.layout
@@ -49,7 +49,7 @@ class realtime_archviz_asset_pipeline_ui(bpy.types.Panel):
         row.operator('object.sy_unparent', text = "Unparent")
         row = col.row(align=True)
         row.prop(context.window_manager, 'RunRename', text = '', icon = 'TRIA_DOWN')
-        row.operator('object.sy_fing_rename', text = "Rename")        
+        row.operator('object.sy_fing_rename', text = "Rename")
         row = col.row(align=True)
         row.prop(context.window_manager, 'RunClean', text = '', icon = 'TRIA_DOWN')
         row.operator('object.sy_geometry_clean', text = "Clean")
@@ -82,11 +82,11 @@ class realtime_archviz_asset_pipeline_ui(bpy.types.Panel):
         row.operator('object.sy_beat_so_funny', text = 'This Beat Is so Funny...', icon = 'TRIA_RIGHT')
 
         #FullAuto
-        box = self.layout.box()        
+        box = self.layout.box()
         col = box.column(align=True)
         row = col.row(align=True)
         row.operator('object.sy_everything_awesome', text = 'Everything Is Awesome!', icon = 'TRIA_RIGHT')
-        
+
         #Export
         box = self.layout.box()
         box.label(text='Export')

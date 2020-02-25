@@ -1,4 +1,4 @@
-  
+
 import bmesh
 import bpy
 import mathutils
@@ -11,12 +11,12 @@ import os
 
 ##########################################################
 # draw UI ButtonS
-class realtime_archviz_ui(bpy.types.Panel):
+class SY_PT_realtime_archviz_ui(bpy.types.Panel):
     bl_idname = "ArchViz_Tools"
     bl_label = 'ArchViz'
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'TOOLS'
-    
+
     def __init__(self):
         pass
 
@@ -28,7 +28,7 @@ class realtime_archviz_ui(bpy.types.Panel):
             return 1#(ob.type == 'MESH')
         except AttributeError:
             return 0
-      
+
     def draw(self, context):
 
         layout = self.layout

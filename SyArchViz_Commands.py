@@ -1,5 +1,5 @@
 
-  
+
 import bmesh
 import bpy
 import mathutils
@@ -12,12 +12,12 @@ import os
 #************************************************************************************
 # SyGolden
 
-class SyGolden(bpy.types.Operator):
+class SY_OT_SyGolden(bpy.types.Operator):
     bl_idname = "object.sy_golden"
     bl_label = "We Are Golden (Sy)"
 
     def execute(self, context):
-        
+
         if(context.window_manager.RunAutoImport):
             bpy.ops.object.sy_auto_import()
         if(context.window_manager.RunMoveToCenter):
@@ -38,12 +38,12 @@ class SyGolden(bpy.types.Operator):
 #************************************************************************************
 # SyBeatSoFunny
 
-class SyBeatSoFunny(bpy.types.Operator):
+class SY_OT_SyBeatSoFunny(bpy.types.Operator):
     bl_idname = "object.sy_beat_so_funny"
     bl_label = "This Beat Is so Funny (Sy)"
 
     def execute(self, context):
-        
+
         bpy.ops.object.sy_uv_full()
         if(context.window_manager.RunIslands):
             bpy.ops.object.sy_uv_keep_groups()
@@ -56,7 +56,7 @@ class SyBeatSoFunny(bpy.types.Operator):
 #************************************************************************************
 # SyEverythingAwesome
 
-class SyEverythingAwesome(bpy.types.Operator):
+class SY_OT_SyEverythingAwesome(bpy.types.Operator):
     bl_idname = "object.sy_everything_awesome"
     bl_label = "Everything Is Awesome (Sy)"
 
@@ -73,7 +73,7 @@ class SyEverythingAwesome(bpy.types.Operator):
 #************************************************************************************
 # SyAutoImport
 
-class SyAutoImport(bpy.types.Operator):
+class SY_OT_SyAutoImport(bpy.types.Operator):
     bl_idname = "object.sy_auto_import"
     bl_label = "Import export.fbx (Sy)"
 
@@ -86,28 +86,28 @@ class SyAutoImport(bpy.types.Operator):
 
         #Import
         bpy.ops.import_scene.fbx(filepath = bpy.path.abspath("//export.fbx"))
-        
+
         return {'FINISHED'}
 
 
 #************************************************************************************
 # SyExportFBX
 
-class SyExportFBX(bpy.types.Operator):
+class SY_OT_SyExportFBX(bpy.types.Operator):
     bl_idname = "object.sy_export_fbx"
     bl_label = "Export FBX (Sy)"
 
     def execute(self, context):
 
         if context.window_manager.ExportAnim:
-            bpy.ops.export_scene.fbx(filepath=bpy.data.filepath[:-6] + '.fbx', use_selection = True, object_types = {'MESH', 'ARMATURE', 'OTHER'}, 
+            bpy.ops.export_scene.fbx(filepath=bpy.data.filepath[:-6] + '.fbx', use_selection = True, object_types = {'MESH', 'ARMATURE', 'OTHER'},
                 add_leaf_bones = True, bake_anim = True,
                 axis_forward = '-Z', axis_up = 'Y', version = 'BIN7400', ui_tab = 'GEOMETRY', global_scale = 1.0, apply_unit_scale = True, bake_space_transform = False, use_mesh_modifiers = True, mesh_smooth_type = 'FACE', use_mesh_edges = False, use_tspace = False, use_custom_props = False, primary_bone_axis = 'Y', secondary_bone_axis = 'X', use_armature_deform_only = False, armature_nodetype = 'NULL', bake_anim_use_all_bones = True, bake_anim_use_nla_strips = True, bake_anim_use_all_actions = True, bake_anim_force_startend_keying = True, bake_anim_step = 1.0, bake_anim_simplify_factor = 1.0, use_anim = True, use_anim_action_all = True, use_default_take = True, use_anim_optimize = True, anim_optimize_precision = 6.0, path_mode = 'AUTO', embed_textures = False, batch_mode = 'OFF', use_batch_own_dir = True)
         else:
-            bpy.ops.export_scene.fbx(filepath=bpy.data.filepath[:-6] + '.fbx', use_selection = True, object_types = {'MESH', 'ARMATURE', 'OTHER'}, 
+            bpy.ops.export_scene.fbx(filepath=bpy.data.filepath[:-6] + '.fbx', use_selection = True, object_types = {'MESH', 'ARMATURE', 'OTHER'},
                 add_leaf_bones = False, bake_anim = False,
                 axis_forward = '-Z', axis_up = 'Y', version = 'BIN7400', ui_tab = 'GEOMETRY', global_scale = 1.0, apply_unit_scale = True, bake_space_transform = False, use_mesh_modifiers = True, mesh_smooth_type = 'FACE', use_mesh_edges = False, use_tspace = False, use_custom_props = False, primary_bone_axis = 'Y', secondary_bone_axis = 'X', use_armature_deform_only = False, armature_nodetype = 'NULL', bake_anim_use_all_bones = True, bake_anim_use_nla_strips = True, bake_anim_use_all_actions = True, bake_anim_force_startend_keying = True, bake_anim_step = 1.0, bake_anim_simplify_factor = 1.0, use_anim = True, use_anim_action_all = True, use_default_take = True, use_anim_optimize = True, anim_optimize_precision = 6.0, path_mode = 'AUTO', embed_textures = False, batch_mode = 'OFF', use_batch_own_dir = True)
-        
+
         bpy.ops.wm.save_mainfile()
 
         return {'FINISHED'}
@@ -115,7 +115,7 @@ class SyExportFBX(bpy.types.Operator):
 #************************************************************************************
 # SyMoveToCenter
 
-class SyMoveToCenter(bpy.types.Operator):
+class SY_OT_SyMoveToCenter(bpy.types.Operator):
     bl_idname = "object.sy_move_to_center"
     bl_label = "Move to Center (Sy)"
 
@@ -136,14 +136,14 @@ class SyMoveToCenter(bpy.types.Operator):
                 if iObject.parent is not None:
                     iObject.select = False;
 
-        #Clear Location        
+        #Clear Location
         bpy.ops.object.location_clear()
 
-    
+
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.context.scene.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
-        
+
         return {'FINISHED'}
 
 
@@ -151,7 +151,7 @@ class SyMoveToCenter(bpy.types.Operator):
 #************************************************************************************
 # SyUnparent
 
-class SyUnparent(bpy.types.Operator):
+class SY_OT_SyUnparent(bpy.types.Operator):
     bl_idname = "object.sy_unparent"
     bl_label = "Unparent (Sy)"
 
@@ -169,7 +169,7 @@ class SyUnparent(bpy.types.Operator):
 
                 #Set Object Active
                 bpy.context.scene.objects.active = iObject
-                    
+
                 #Select Children, Unparent
                 bpy.ops.object.select_grouped(type='CHILDREN_RECURSIVE')
                 bpy.ops.object.parent_clear(type='CLEAR_KEEP_TRANSFORM')
@@ -189,14 +189,14 @@ class SyUnparent(bpy.types.Operator):
 
         #Make sure something is active
         bpy.context.scene.objects.active = bpy.context.selected_objects[0]
-        
+
         return {'FINISHED'}
 
 
 #************************************************************************************
 # SyGeometryClean
 
-class SyGeometryClean(bpy.types.Operator):
+class SY_OT_SyGeometryClean(bpy.types.Operator):
     bl_idname = "object.sy_geometry_clean"
     bl_label = "Clean Geometry (Sy)"
 
@@ -239,7 +239,7 @@ class SyGeometryClean(bpy.types.Operator):
                         bpy.ops.mesh.delete_loose()
                         bpy.ops.mesh.select_interior_faces()
                         bpy.ops.mesh.delete(type='FACE')
-                        
+
                         bpy.ops.object.mode_set(mode='OBJECT')
                         bpy.ops.object.shade_smooth()
 
@@ -248,19 +248,19 @@ class SyGeometryClean(bpy.types.Operator):
 
                 else:
                     bpy.data.objects.remove(iObject, do_unlink = True)
-    
+
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.context.scene.objects.active = SelectedAtStart
         if bpy.context.scene.objects.active == None:
             bpy.context.scene.objects.active = AlternativeSelection
         bpy.ops.object.mode_set(mode = ModeAtStart)
-        
+
         return {'FINISHED'}
 
 #************************************************************************************
 # SyGeometrySplit
 
-class SyGeometrySplit(bpy.types.Operator):
+class SY_OT_SyGeometrySplit(bpy.types.Operator):
     bl_idname = "object.sy_geometry_split"
     bl_label = "Split Geometry (Sy)"
 
@@ -285,18 +285,18 @@ class SyGeometrySplit(bpy.types.Operator):
 
                     bpy.ops.mesh.separate(type='LOOSE')
 
-                    bpy.ops.object.mode_set(mode='OBJECT')  
+                    bpy.ops.object.mode_set(mode='OBJECT')
 
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.context.scene.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
-        
+
         return {'FINISHED'}
 
 #************************************************************************************
 # SyModifiersBasic
 
-class SyModifiersBasic(bpy.types.Operator):
+class SY_OT_SyModifiersBasic(bpy.types.Operator):
     bl_idname = "object.sy_modifiers_basic"
     bl_label = "Apply Basic Modifiers (Sy)"
 
@@ -313,7 +313,7 @@ class SyModifiersBasic(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject  
+                    bpy.context.scene.objects.active = iObject
 
                     #Modifiers
                     if 0 == len([m for m in bpy.context.object.modifiers if m.type == "EDGE_SPLIT"]):
@@ -322,17 +322,17 @@ class SyModifiersBasic(bpy.types.Operator):
                         EdgeSplit.use_edge_sharp = True
                     if 0 == len([m for m in bpy.context.object.modifiers if m.type == "TRIANGULATE"]):
                         bpy.ops.object.modifier_add(type='TRIANGULATE')
-    
+
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.context.scene.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
-        
+
         return {'FINISHED'}
 
 #************************************************************************************
 # SyModifiersPolyred
 
-class SyModifiersPolyred(bpy.types.Operator):
+class SY_OT_SyModifiersPolyred(bpy.types.Operator):
     bl_idname = "object.sy_modifiers_polyred"
     bl_label = "Apply Polyred Modifiers (Sy)"
 
@@ -371,7 +371,7 @@ class SyModifiersPolyred(bpy.types.Operator):
                     #Triangulate
                     if 0 == len([m for m in bpy.context.object.modifiers if m.type == "TRIANGULATE"]):
                         bpy.ops.object.modifier_add(type='TRIANGULATE')
-        
+
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.context.scene.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
@@ -381,7 +381,7 @@ class SyModifiersPolyred(bpy.types.Operator):
 #************************************************************************************
 # SyUVFull
 
-class SyUVFull(bpy.types.Operator):
+class SY_OT_SyUVFull(bpy.types.Operator):
     bl_idname = "object.sy_uv_full"
     bl_label = "Full UV Rewrap (Sy)"
 
@@ -398,7 +398,7 @@ class SyUVFull(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject  
+                    bpy.context.scene.objects.active = iObject
 
                     #Set right Mode and select
                     bpy.ops.object.mode_set(mode='EDIT')
@@ -420,18 +420,18 @@ class SyUVFull(bpy.types.Operator):
                         bpy.ops.uv.smart_project(island_margin = 0.1, stretch_to_bounds=True)
 
                     #Return to StartMode
-                    bpy.ops.object.mode_set(mode='OBJECT')               
-    
+                    bpy.ops.object.mode_set(mode='OBJECT')
+
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.context.scene.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
-        
+
         return {'FINISHED'}
 
 #************************************************************************************
 # SyUVKeepGroups
 
-class SyUVKeepGroups(bpy.types.Operator):
+class SY_OT_SyUVKeepGroups(bpy.types.Operator):
     bl_idname = "object.sy_uv_keep_groups"
     bl_label = "Rewrap UV by Groups (Sy)"
 
@@ -448,8 +448,8 @@ class SyUVKeepGroups(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject  
-    
+                    bpy.context.scene.objects.active = iObject
+
                     #Duplicate UV
                     if len(bpy.context.object.data.uv_textures) < 2:
                         bpy.ops.mesh.uv_texture_add()
@@ -467,21 +467,21 @@ class SyUVKeepGroups(bpy.types.Operator):
 
                     bpy.context.area.type = 'IMAGE_EDITOR'
                     bpy.context.area.spaces.active.image = None
-                    bpy.ops.uv.pack_islands(margin=0.1)     
-                    bpy.context.area.type = 'VIEW_3D'   
-                    
-                    bpy.ops.object.mode_set(mode='OBJECT')   
+                    bpy.ops.uv.pack_islands(margin=0.1)
+                    bpy.context.area.type = 'VIEW_3D'
+
+                    bpy.ops.object.mode_set(mode='OBJECT')
 
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.context.scene.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
-        
+
         return {'FINISHED'}
 
 #************************************************************************************
 # SyRepackIslands
 
-class SyRepackIslands(bpy.types.Operator):
+class SY_OT_SyRepackIslands(bpy.types.Operator):
     bl_idname = "object.sy_uv_islands"
     bl_label = "Pack Islands (Sy)"
 
@@ -498,7 +498,7 @@ class SyRepackIslands(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject  
+                    bpy.context.scene.objects.active = iObject
 
                     #Set right Mode and select
                     bpy.ops.object.mode_set(mode='EDIT')
@@ -519,21 +519,21 @@ class SyRepackIslands(bpy.types.Operator):
                         bpy.ops.uv.pack_islands(rotate= not context.window_manager.PackRotate, margin=context.window_manager.PackSize)
 
                     #Return to StartMode
-                    bpy.context.area.type = 'VIEW_3D'                     
-                    bpy.ops.object.mode_set(mode='OBJECT')               
+                    bpy.context.area.type = 'VIEW_3D'
+                    bpy.ops.object.mode_set(mode='OBJECT')
             bpy.context.scene.objects.active = SelectedAtStart
 
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.context.scene.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
-        
+
         return {'FINISHED'}
 
 
 #************************************************************************************
 # SyFingRename
 
-class SyFingRename(bpy.types.Operator):
+class SY_OT_SyFingRename(bpy.types.Operator):
     bl_idname = "object.sy_fing_rename"
     bl_label = "Fing Rename (Sy)"
 
@@ -550,12 +550,12 @@ class SyFingRename(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject  
+                    bpy.context.scene.objects.active = iObject
 
                     #Rename
                     bpy.context.object.name = bpy.context.object.name[:3]
             bpy.context.scene.objects.active = SelectedAtStart
-        
+
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.context.scene.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
@@ -566,10 +566,10 @@ class SyFingRename(bpy.types.Operator):
 #************************************************************************************
 # Unparent from Empty
 
-class SyCreateBounds(bpy.types.Operator):
+class SY_OT_SyCreateBounds(bpy.types.Operator):
     bl_idname = "object.sy_create_bounds"
     bl_label = "Create Bounding Boxes (Sy)"
-    
+
     def execute(self, context):
 
         selected = bpy.context.selected_objects
@@ -578,9 +578,9 @@ class SyCreateBounds(bpy.types.Operator):
             #ensure origin is centered on bounding box center
             bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
             #create a cube for the bounding box
-            bpy.ops.mesh.primitive_cube_add() 
+            bpy.ops.mesh.primitive_cube_add()
             #our new cube is now the active object, so we can keep track of it in a variable:
-            bound_box = bpy.context.active_object 
+            bound_box = bpy.context.active_object
 
             #copy transforms
             bound_box.dimensions = obj.dimensions
@@ -597,16 +597,16 @@ class SyCreateBounds(bpy.types.Operator):
 
 
 
-        return {'FINISHED'} 
+        return {'FINISHED'}
 
 
 #************************************************************************************
 # Unparent from Empty
 
-class SySplitBounds(bpy.types.Operator):
+class SY_OT_SySplitBounds(bpy.types.Operator):
     bl_idname = "object.sy_split_bounds"
     bl_label = "Split along Seam (Sy)"
-    
+
     def execute(self, context):
 
         bpy.ops.mesh.rip('INVOKE_DEFAULT')
@@ -617,16 +617,16 @@ class SySplitBounds(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='OBJECT')
 
 
-        return {'FINISHED'} 
+        return {'FINISHED'}
 
 
 #************************************************************************************
 # Clean All Connections
 
-class SyCleanAllConnections(bpy.types.Operator):
+class SY_OT_SyCleanAllConnections(bpy.types.Operator):
     bl_idname = "object.sy_clean_all_connections"
     bl_label = "Cleans all Face Connections (Sy)"
-    
+
     def execute(self, context):
 
         ModeAtStart = bpy.context.object.mode
@@ -640,7 +640,7 @@ class SyCleanAllConnections(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject  
+                    bpy.context.scene.objects.active = iObject
 
                     #Mode
                     bpy.ops.object.mode_set(mode='EDIT')
@@ -671,22 +671,22 @@ class SyCleanAllConnections(bpy.types.Operator):
 
 
                     #Mode
-                    bpy.ops.object.mode_set(mode='OBJECT')   
+                    bpy.ops.object.mode_set(mode='OBJECT')
 
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.context.scene.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
 
-        return {'FINISHED'}  
+        return {'FINISHED'}
 
 
 #************************************************************************************
 # Clean Connections
 
-class SyCleanConnections(bpy.types.Operator):
+class SY_OT_SyCleanConnections(bpy.types.Operator):
     bl_idname = "object.sy_clean_connections"
     bl_label = "Cleans Face Connections (Sy)"
-    
+
     def execute(self, context):
 
         #Get Data
@@ -704,7 +704,7 @@ class SyCleanConnections(bpy.types.Operator):
 
         #Duplicate
         bpy.ops.mesh.duplicate()
-        
+
         #Hide
         bpy.ops.mesh.hide(unselected=False)
 
@@ -717,17 +717,17 @@ class SyCleanConnections(bpy.types.Operator):
 
         #Unhide
         bpy.ops.mesh.reveal()
-        
-        return {'FINISHED'} 
+
+        return {'FINISHED'}
 
 
 #************************************************************************************
 # Reduce Materials
 
-class SyReduceMaterials(bpy.types.Operator):
+class SY_OT_SyReduceMaterials(bpy.types.Operator):
     bl_idname = "object.sy_reduce_materials"
     bl_label = "Reduce Materials (Sy)"
-    
+
     def execute(self, context):
 
         ModeAtStart = bpy.context.object.mode
@@ -741,7 +741,7 @@ class SyReduceMaterials(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject  
+                    bpy.context.scene.objects.active = iObject
 
                     #Go through Materials
                     IsDone = False;
@@ -785,34 +785,34 @@ class SyReduceMaterials(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.context.scene.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
-        
-        return {'FINISHED'}  
+
+        return {'FINISHED'}
 
 
 #************************************************************************************
 # Reduce Materials
 
-class SyBuildingClean(bpy.types.Operator):
+class SY_OT_SyBuildingClean(bpy.types.Operator):
     bl_idname = "object.sy_import_3ds_c4d"
     bl_label = "Import 3DS from C4D (Sy)"
-    
+
     def execute(self, context):
 
         bpy.ops.object.location_clear()
         bpy.ops.object.rotation_clear()
         bpy.ops.object.scale_clear()
-        
-        return {'FINISHED'} 
+
+        return {'FINISHED'}
 
 
 
 #************************************************************************************
 # Reduce Materials
 
-class SyBuildingClean(bpy.types.Operator):
+class SY_OT_SyBuildingClean(bpy.types.Operator):
     bl_idname = "object.sy_building_clean"
     bl_label = "Building Clean (Sy)"
-    
+
     def execute(self, context):
 
         ModeAtStart = bpy.context.object.mode
@@ -828,7 +828,7 @@ class SyBuildingClean(bpy.types.Operator):
                     bpy.ops.object.mode_set(mode='EDIT')
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject  
+                    bpy.context.scene.objects.active = iObject
 
                     #Remove Degenerates
                     bpy.ops.mesh.dissolve_degenerate()
@@ -840,17 +840,17 @@ class SyBuildingClean(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.context.scene.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
-        
-        return {'FINISHED'} 
+
+        return {'FINISHED'}
 
 
 #************************************************************************************
 # GetCurveLength
 
-class SyGetCurveLength(bpy.types.Operator):
+class SY_OT_SyGetCurveLength(bpy.types.Operator):
     bl_idname = "object.sy_get_curve_length"
     bl_label = "Get CurveLength (Sy)"
-    
+
     def execute(self, context):
 
         context = bpy.context
@@ -873,7 +873,7 @@ class SyGetCurveLength(bpy.types.Operator):
         print (length)
         context.window_manager.CurveLength = length;
 
-        return {'FINISHED'}  
+        return {'FINISHED'}
 
 
 #************************************************************************************
@@ -914,4 +914,3 @@ def clear_properties():
             del x
         except:
             pass
-
