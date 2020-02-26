@@ -56,16 +56,14 @@ classes = (
 # register, unregister = bpy.utils.register_classes_factory(classes)
 
 def register():
-    from bpy.utils import register_class
     for cls in classes:
-        register_class(cls)
+        bpy.utils.register_class(cls)
     SyArchViz_Tools.init_properties()
     SyArchViz_AssetPipeline.init_properties()
 
 def unregister():
-    from bpy.utils import unregister_class
     for cls in reversed(classes):
-        unregister_class(cls)
+        bpy.utils.unregister_class(cls)
     SyArchViz_Tools.clear_properties()
     SyArchViz_AssetPipeline.clear_properties()
 
