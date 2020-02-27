@@ -42,8 +42,6 @@ classes = (
     SyArchViz_Commands.SY_OT_SyUVKeepGroups,
     SyArchViz_Commands.SY_OT_SyRepackIslands,
     SyArchViz_Commands.SY_OT_SyFingRename,
-    SyArchViz_Commands.SY_OT_SyCreateBounds,
-    SyArchViz_Commands.SY_OT_SySplitBounds,
     SyArchViz_Commands.SY_OT_SyCleanAllConnections,
     SyArchViz_Commands.SY_OT_SyCleanConnections,
     SyArchViz_Commands.SY_OT_SyReduceMaterials,

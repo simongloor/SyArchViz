@@ -49,14 +49,6 @@ class SY_PT_realtime_archviz_ui(bpy.types.Panel):
         row.operator('object.sy_building_clean', text = 'Clean')
 
 
-        #Collision
-        box = self.layout.box()
-        box.label(text='Collision')
-        col = box.column(align=True)
-        row = col.row(align=True)
-        row.operator('object.sy_create_bounds', text = 'Create Bounds')
-        row.operator('object.sy_split_bounds', text = 'Split Bounds')
-
         #Utility
         box = self.layout.box()
         box.label(text='Utility')

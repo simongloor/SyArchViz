@@ -564,63 +564,6 @@ class SY_OT_SyFingRename(bpy.types.Operator):
 
 
 #************************************************************************************
-# Unparent from Empty
-
-class SY_OT_SyCreateBounds(bpy.types.Operator):
-    bl_idname = "object.sy_create_bounds"
-    bl_label = "Create Bounding Boxes (Sy)"
-
-    def execute(self, context):
-
-        selected = bpy.context.selected_objects
-
-        for obj in selected:
-            #ensure origin is centered on bounding box center
-            bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
-            #create a cube for the bounding box
-            bpy.ops.mesh.primitive_cube_add()
-            #our new cube is now the active object, so we can keep track of it in a variable:
-            bound_box = bpy.context.active_object
-
-            #copy transforms
-            bound_box.dimensions = obj.dimensions
-            bound_box.location = obj.location
-            bound_box.rotation_euler = obj.rotation_euler
-
-            #rename
-            bound_box.name = "UBX_" + bound_box.name + "_.000"
-
-        #select old
-        bpy.ops.object.select_all(action='DESELECT')
-        for obj in selected:
-            obj.select = True
-
-
-
-        return {'FINISHED'}
-
-
-#************************************************************************************
-# Unparent from Empty
-
-class SY_OT_SySplitBounds(bpy.types.Operator):
-    bl_idname = "object.sy_split_bounds"
-    bl_label = "Split along Seam (Sy)"
-
-    def execute(self, context):
-
-        bpy.ops.mesh.rip('INVOKE_DEFAULT')
-        bpy.ops.mesh.select_all(action='SELECT')
-        bpy.ops.mesh.edge_face_add()
-        bpy.ops.mesh.f2()
-        bpy.ops.mesh.separate(type='LOOSE')
-        bpy.ops.object.mode_set(mode='OBJECT')
-
-
-        return {'FINISHED'}
-
-
-#************************************************************************************
 # Clean All Connections
 
 class SY_OT_SyCleanAllConnections(bpy.types.Operator):
