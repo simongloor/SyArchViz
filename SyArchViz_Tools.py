@@ -15,7 +15,7 @@ class SY_PT_realtime_archviz_ui(bpy.types.Panel):
     bl_idname = "ArchViz_Tools"
     bl_label = 'ArchViz'
     bl_space_type = 'VIEW_3D'
-    bl_region_type = 'TOOLS'
+    bl_region_type = 'UI'
 
     def __init__(self):
         pass

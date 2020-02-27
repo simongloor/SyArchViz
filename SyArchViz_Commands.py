@@ -121,12 +121,12 @@ class SY_OT_SyMoveToCenter(bpy.types.Operator):
 
     def execute(self, context):
 
-        if bpy.context.scene.objects.active == None:
-            bpy.context.scene.objects.active = bpy.context.selected_objects[0]
+        if bpy.context.view_layer.objects.active == None:
+            bpy.context.view_layer.objects.active = bpy.context.selected_objects[0]
 
         ModeAtStart = bpy.context.object.mode
         bpy.ops.object.mode_set(mode='OBJECT')
-        SelectedAtStart = bpy.context.scene.objects.active
+        SelectedAtStart = bpy.context.view_layer.objects.active
 
 
         #Deselect Children
@@ -141,7 +141,7 @@ class SY_OT_SyMoveToCenter(bpy.types.Operator):
 
 
         bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.context.scene.objects.active = SelectedAtStart
+        bpy.context.view_layer.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
 
         return {'FINISHED'}
@@ -168,7 +168,7 @@ class SY_OT_SyUnparent(bpy.types.Operator):
             for iObject in ObjectsToSetUp:
 
                 #Set Object Active
-                bpy.context.scene.objects.active = iObject
+                bpy.context.view_layer.objects.active = iObject
 
                 #Select Children, Unparent
                 bpy.ops.object.select_grouped(type='CHILDREN_RECURSIVE')
@@ -188,7 +188,7 @@ class SY_OT_SyUnparent(bpy.types.Operator):
                 iObject.select = True
 
         #Make sure something is active
-        bpy.context.scene.objects.active = bpy.context.selected_objects[0]
+        bpy.context.view_layer.objects.active = bpy.context.selected_objects[0]
 
         return {'FINISHED'}
 
@@ -204,7 +204,7 @@ class SY_OT_SyGeometryClean(bpy.types.Operator):
 
         ModeAtStart = bpy.context.object.mode
         bpy.ops.object.mode_set(mode='OBJECT')
-        SelectedAtStart = bpy.context.scene.objects.active
+        SelectedAtStart = bpy.context.view_layer.objects.active
         AlternativeSelection = SelectedAtStart
 
         #Iterate through Objects
@@ -214,7 +214,7 @@ class SY_OT_SyGeometryClean(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject
+                    bpy.context.view_layer.objects.active = iObject
 
                     #Count Vertices
                     bpy.ops.object.mode_set(mode='EDIT')
@@ -250,9 +250,9 @@ class SY_OT_SyGeometryClean(bpy.types.Operator):
                     bpy.data.objects.remove(iObject, do_unlink = True)
 
         bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.context.scene.objects.active = SelectedAtStart
-        if bpy.context.scene.objects.active == None:
-            bpy.context.scene.objects.active = AlternativeSelection
+        bpy.context.view_layer.objects.active = SelectedAtStart
+        if bpy.context.view_layer.objects.active == None:
+            bpy.context.view_layer.objects.active = AlternativeSelection
         bpy.ops.object.mode_set(mode = ModeAtStart)
 
         return {'FINISHED'}
@@ -268,7 +268,7 @@ class SY_OT_SyGeometrySplit(bpy.types.Operator):
 
         ModeAtStart = bpy.context.object.mode
         bpy.ops.object.mode_set(mode='OBJECT')
-        SelectedAtStart = bpy.context.scene.objects.active
+        SelectedAtStart = bpy.context.view_layer.objects.active
 
         #Iterate through Objects
         ObjectsToSetUp = bpy.context.selected_objects
@@ -277,7 +277,7 @@ class SY_OT_SyGeometrySplit(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject
+                    bpy.context.view_layer.objects.active = iObject
 
                     bpy.context.area.type = 'VIEW_3D'
                     bpy.ops.object.mode_set(mode='EDIT')
@@ -288,7 +288,7 @@ class SY_OT_SyGeometrySplit(bpy.types.Operator):
                     bpy.ops.object.mode_set(mode='OBJECT')
 
         bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.context.scene.objects.active = SelectedAtStart
+        bpy.context.view_layer.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
 
         return {'FINISHED'}
@@ -304,7 +304,7 @@ class SY_OT_SyModifiersBasic(bpy.types.Operator):
 
         ModeAtStart = bpy.context.object.mode
         bpy.ops.object.mode_set(mode='OBJECT')
-        SelectedAtStart = bpy.context.scene.objects.active
+        SelectedAtStart = bpy.context.view_layer.objects.active
 
         #Iterate through Objects
         ObjectsToSetUp = bpy.context.selected_objects
@@ -313,7 +313,7 @@ class SY_OT_SyModifiersBasic(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject
+                    bpy.context.view_layer.objects.active = iObject
 
                     #Modifiers
                     if 0 == len([m for m in bpy.context.object.modifiers if m.type == "EDGE_SPLIT"]):
@@ -324,7 +324,7 @@ class SY_OT_SyModifiersBasic(bpy.types.Operator):
                         bpy.ops.object.modifier_add(type='TRIANGULATE')
 
         bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.context.scene.objects.active = SelectedAtStart
+        bpy.context.view_layer.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
 
         return {'FINISHED'}
@@ -340,7 +340,7 @@ class SY_OT_SyModifiersPolyred(bpy.types.Operator):
 
         ModeAtStart = bpy.context.object.mode
         bpy.ops.object.mode_set(mode='OBJECT')
-        SelectedAtStart = bpy.context.scene.objects.active
+        SelectedAtStart = bpy.context.view_layer.objects.active
 
         #Iterate through Objects
         ObjectsToSetUp = bpy.context.selected_objects
@@ -349,7 +349,7 @@ class SY_OT_SyModifiersPolyred(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject
+                    bpy.context.view_layer.objects.active = iObject
 
                     #Modifiers
 
@@ -373,7 +373,7 @@ class SY_OT_SyModifiersPolyred(bpy.types.Operator):
                         bpy.ops.object.modifier_add(type='TRIANGULATE')
 
         bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.context.scene.objects.active = SelectedAtStart
+        bpy.context.view_layer.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
 
         return {'FINISHED'}
@@ -389,7 +389,7 @@ class SY_OT_SyUVFull(bpy.types.Operator):
 
         ModeAtStart = bpy.context.object.mode
         bpy.ops.object.mode_set(mode='OBJECT')
-        SelectedAtStart = bpy.context.scene.objects.active
+        SelectedAtStart = bpy.context.view_layer.objects.active
 
         #Iterate through Objects
         ObjectsToSetUp = bpy.context.selected_objects
@@ -398,7 +398,7 @@ class SY_OT_SyUVFull(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject
+                    bpy.context.view_layer.objects.active = iObject
 
                     #Set right Mode and select
                     bpy.ops.object.mode_set(mode='EDIT')
@@ -423,7 +423,7 @@ class SY_OT_SyUVFull(bpy.types.Operator):
                     bpy.ops.object.mode_set(mode='OBJECT')
 
         bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.context.scene.objects.active = SelectedAtStart
+        bpy.context.view_layer.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
 
         return {'FINISHED'}
@@ -439,7 +439,7 @@ class SY_OT_SyUVKeepGroups(bpy.types.Operator):
 
         ModeAtStart = bpy.context.object.mode
         bpy.ops.object.mode_set(mode='OBJECT')
-        SelectedAtStart = bpy.context.scene.objects.active
+        SelectedAtStart = bpy.context.view_layer.objects.active
 
         #Iterate through Objects
         ObjectsToSetUp = bpy.context.selected_objects
@@ -448,7 +448,7 @@ class SY_OT_SyUVKeepGroups(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject
+                    bpy.context.view_layer.objects.active = iObject
 
                     #Duplicate UV
                     if len(bpy.context.object.data.uv_textures) < 2:
@@ -473,7 +473,7 @@ class SY_OT_SyUVKeepGroups(bpy.types.Operator):
                     bpy.ops.object.mode_set(mode='OBJECT')
 
         bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.context.scene.objects.active = SelectedAtStart
+        bpy.context.view_layer.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
 
         return {'FINISHED'}
@@ -489,7 +489,7 @@ class SY_OT_SyRepackIslands(bpy.types.Operator):
 
         ModeAtStart = bpy.context.object.mode
         bpy.ops.object.mode_set(mode='OBJECT')
-        SelectedAtStart = bpy.context.scene.objects.active
+        SelectedAtStart = bpy.context.view_layer.objects.active
 
         #Iterate through Objects
         ObjectsToSetUp = bpy.context.selected_objects
@@ -498,7 +498,7 @@ class SY_OT_SyRepackIslands(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject
+                    bpy.context.view_layer.objects.active = iObject
 
                     #Set right Mode and select
                     bpy.ops.object.mode_set(mode='EDIT')
@@ -521,10 +521,10 @@ class SY_OT_SyRepackIslands(bpy.types.Operator):
                     #Return to StartMode
                     bpy.context.area.type = 'VIEW_3D'
                     bpy.ops.object.mode_set(mode='OBJECT')
-            bpy.context.scene.objects.active = SelectedAtStart
+            bpy.context.view_layer.objects.active = SelectedAtStart
 
         bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.context.scene.objects.active = SelectedAtStart
+        bpy.context.view_layer.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
 
         return {'FINISHED'}
@@ -541,7 +541,7 @@ class SY_OT_SyFingRename(bpy.types.Operator):
 
         ModeAtStart = bpy.context.object.mode
         bpy.ops.object.mode_set(mode='OBJECT')
-        SelectedAtStart = bpy.context.scene.objects.active
+        SelectedAtStart = bpy.context.view_layer.objects.active
 
         #Iterate through Objects
         ObjectsToSetUp = bpy.context.selected_objects
@@ -550,14 +550,14 @@ class SY_OT_SyFingRename(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject
+                    bpy.context.view_layer.objects.active = iObject
 
                     #Rename
                     bpy.context.object.name = bpy.context.object.name[:3]
-            bpy.context.scene.objects.active = SelectedAtStart
+            bpy.context.view_layer.objects.active = SelectedAtStart
 
         bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.context.scene.objects.active = SelectedAtStart
+        bpy.context.view_layer.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
 
         return {'FINISHED'}
@@ -631,7 +631,7 @@ class SY_OT_SyCleanAllConnections(bpy.types.Operator):
 
         ModeAtStart = bpy.context.object.mode
         bpy.ops.object.mode_set(mode='OBJECT')
-        SelectedAtStart = bpy.context.scene.objects.active
+        SelectedAtStart = bpy.context.view_layer.objects.active
 
         #Iterate through Objects
         ObjectsToSetUp = bpy.context.selected_objects
@@ -640,7 +640,7 @@ class SY_OT_SyCleanAllConnections(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject
+                    bpy.context.view_layer.objects.active = iObject
 
                     #Mode
                     bpy.ops.object.mode_set(mode='EDIT')
@@ -674,7 +674,7 @@ class SY_OT_SyCleanAllConnections(bpy.types.Operator):
                     bpy.ops.object.mode_set(mode='OBJECT')
 
         bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.context.scene.objects.active = SelectedAtStart
+        bpy.context.view_layer.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
 
         return {'FINISHED'}
@@ -690,7 +690,7 @@ class SY_OT_SyCleanConnections(bpy.types.Operator):
     def execute(self, context):
 
         #Get Data
-        iObject = bpy.context.scene.objects.active
+        iObject = bpy.context.view_layer.objects.active
 
         #FaceMode
         bpy.ops.mesh.select_mode(type="FACE") #VERT EDGE
@@ -732,7 +732,7 @@ class SY_OT_SyReduceMaterials(bpy.types.Operator):
 
         ModeAtStart = bpy.context.object.mode
         bpy.ops.object.mode_set(mode='OBJECT')
-        SelectedAtStart = bpy.context.scene.objects.active
+        SelectedAtStart = bpy.context.view_layer.objects.active
 
         #Iterate through Objects
         ObjectsToSetUp = bpy.context.selected_objects
@@ -741,7 +741,7 @@ class SY_OT_SyReduceMaterials(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject
+                    bpy.context.view_layer.objects.active = iObject
 
                     #Go through Materials
                     IsDone = False;
@@ -783,7 +783,7 @@ class SY_OT_SyReduceMaterials(bpy.types.Operator):
 
 
         bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.context.scene.objects.active = SelectedAtStart
+        bpy.context.view_layer.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
 
         return {'FINISHED'}
@@ -817,7 +817,7 @@ class SY_OT_SyBuildingClean(bpy.types.Operator):
 
         ModeAtStart = bpy.context.object.mode
         bpy.ops.object.mode_set(mode='OBJECT')
-        SelectedAtStart = bpy.context.scene.objects.active
+        SelectedAtStart = bpy.context.view_layer.objects.active
 
         #Iterate through Objects
         ObjectsToSetUp = bpy.context.selected_objects
@@ -828,7 +828,7 @@ class SY_OT_SyBuildingClean(bpy.types.Operator):
                     bpy.ops.object.mode_set(mode='EDIT')
 
                     #Set Object Active
-                    bpy.context.scene.objects.active = iObject
+                    bpy.context.view_layer.objects.active = iObject
 
                     #Remove Degenerates
                     bpy.ops.mesh.dissolve_degenerate()
@@ -838,7 +838,7 @@ class SY_OT_SyBuildingClean(bpy.types.Operator):
 
 
         bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.context.scene.objects.active = SelectedAtStart
+        bpy.context.view_layer.objects.active = SelectedAtStart
         bpy.ops.object.mode_set(mode = ModeAtStart)
 
         return {'FINISHED'}
