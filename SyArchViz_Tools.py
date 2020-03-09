@@ -16,6 +16,7 @@ class SY_PT_realtime_archviz_ui(bpy.types.Panel):
     bl_label = 'ArchViz'
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
+    bl_category = "SY | flow"
 
     def __init__(self):
         pass
