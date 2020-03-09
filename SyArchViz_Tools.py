@@ -34,12 +34,12 @@ class SY_PT_realtime_archviz_ui(bpy.types.Panel):
 
         layout = self.layout
 
-        #Import
-        box = self.layout.box()
-        box.label(text='Import')
-        col = box.column(align=True)
-        row = col.row(align=True)
-        row.operator('object.sy_import_3ds_c4d', text = 'Fix: 3DS | C4D')
+        # #Import
+        # box = self.layout.box()
+        # box.label(text='Import')
+        # col = box.column(align=True)
+        # row = col.row(align=True)
+        #row.operator('object.sy_import_3ds_c4d', text = 'Fix: 3DS | C4D')
 
 
         #Architecture
