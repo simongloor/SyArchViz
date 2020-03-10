@@ -1,5 +1,3 @@
-
-
 import bmesh
 import bpy
 import mathutils

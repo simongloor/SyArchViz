@@ -19,3 +19,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+#************************************************************************************
+
+Disclaimer
+
+This project was startet in the free time of Simon Gloor to research and
+improve his workflow in Blender for architectural and AAA content. It was
+then licensed under the MIT license to allow Simon Gloor to make quick
+changes during the working hours based on immediate needs of the junior
+project managers.
+
+Since the plugin was continuously maintained, sometimes for work, sometimes
+for private use, the MIT license was kept.
