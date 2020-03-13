@@ -44,7 +44,6 @@ classes = (
     SyArchViz_Commands.SY_OT_SyFingRename,
     SyArchViz_Commands.SY_OT_SyCleanAllConnections,
     SyArchViz_Commands.SY_OT_SyCleanConnections,
-    SyArchViz_Commands.SY_OT_SyReduceMaterials,
     SyArchViz_Commands.SY_OT_SyBuildingClean,
     SyArchViz_Commands.SY_OT_SyGetCurveLength,
     SyArchViz_Tools.SY_PT_realtime_archviz_ui,
