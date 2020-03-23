@@ -37,9 +37,9 @@ class SY_PT_realtime_archviz_asset_pipeline_ui(bpy.types.Panel):
         box = self.layout.box()
         box.label(text='Object')
         col = box.column(align=True)
-        row = col.row(align=True)
-        row.prop(context.window_manager, 'RunAutoImport', text = '', icon = 'TRIA_DOWN')
-        row.operator('object.sy_auto_import', text = "Import")
+        # row = col.row(align=True)
+        # row.prop(context.window_manager, 'RunAutoImport', text = '', icon = 'TRIA_DOWN')
+        # row.operator('object.sy_auto_import', text = "Import")
         #row.prop(context.window_manager, 'RenameFile', text = '', icon = 'FILE_BLEND')
         row = col.row(align=True)
         row.prop(context.window_manager, 'RunMoveToCenter', text = '', icon = 'TRIA_DOWN')
@@ -57,8 +57,8 @@ class SY_PT_realtime_archviz_asset_pipeline_ui(bpy.types.Panel):
         row.prop(context.window_manager, 'RunModifiers', text = '', icon = 'TRIA_DOWN')
         row.operator('object.sy_modifiers_polyred', text = "Add Modifiers")
         row.prop(context.window_manager, 'TargetDecimateCount', text = '')
-        row = col.row(align=True)
-        row.operator('object.sy_golden', text = 'We Are Golden!', icon = 'TRIA_RIGHT')
+        #row = col.row(align=True)
+        #row.operator('object.sy_golden', text = 'We Are Golden!', icon = 'TRIA_RIGHT')
 
         #UV
         box = self.layout.box()
@@ -78,23 +78,23 @@ class SY_PT_realtime_archviz_asset_pipeline_ui(bpy.types.Panel):
         row.operator('object.sy_uv_islands', text = 'Pack')
         row.prop(context.window_manager, 'PackSize', text = '')
         row.prop(context.window_manager, 'PackRotate', text = '', icon = 'ZOOM_OUT')
-        row = col.row(align=True)
-        row.operator('object.sy_beat_so_funny', text = 'This Beat Is so Funny...', icon = 'TRIA_RIGHT')
+        #row = col.row(align=True)
+        #row.operator('object.sy_beat_so_funny', text = 'This Beat Is so Funny...', icon = 'TRIA_RIGHT')
 
-        #FullAuto
-        box = self.layout.box()
-        col = box.column(align=True)
-        row = col.row(align=True)
-        row.operator('object.sy_everything_awesome', text = 'Everything Is Awesome!', icon = 'TRIA_RIGHT')
+        # #FullAuto
+        # box = self.layout.box()
+        # col = box.column(align=True)
+        # row = col.row(align=True)
+        # row.operator('object.sy_everything_awesome', text = 'Everything Is Awesome!', icon = 'TRIA_RIGHT')
 
-        #Export
-        box = self.layout.box()
-        box.label(text='Export')
-        col = box.column(align=True)
-        row = col.row(align=True)
-        #row.prop(context.window_manager, 'RunExportFBX', text = '', icon = 'TRIA_DOWN')
-        row.operator('object.sy_export_fbx', text = 'Export FBX')
-        row.prop(context.window_manager, 'ExportAnim', text = '', icon = 'POSE_HLT')
+        # #Export
+        # box = self.layout.box()
+        # box.label(text='Export')
+        # col = box.column(align=True)
+        # row = col.row(align=True)
+        # #row.prop(context.window_manager, 'RunExportFBX', text = '', icon = 'TRIA_DOWN')
+        # row.operator('object.sy_export_fbx', text = 'Export FBX')
+        # row.prop(context.window_manager, 'ExportAnim', text = '', icon = 'POSE_HLT')
 
 
 

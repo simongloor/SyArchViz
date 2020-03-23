@@ -132,7 +132,7 @@ class SY_OT_SyMoveToCenter(bpy.types.Operator):
         if len(ObjectsToSetUp) > 0:
             for iObject in ObjectsToSetUp:
                 if iObject.parent is not None:
-                    iObject.select = False;
+                    iObject.select_set(False);
 
         #Clear Location
         bpy.ops.object.location_clear()
@@ -183,7 +183,7 @@ class SY_OT_SyUnparent(bpy.types.Operator):
         #Restore selection
         if len(AllSelected) > 0:
             for iObject in AllSelected:
-                iObject.select = True
+                iObject.select_set(True)
 
         #Make sure something is active
         bpy.context.view_layer.objects.active = bpy.context.selected_objects[0]
