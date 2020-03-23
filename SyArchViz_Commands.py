@@ -367,7 +367,7 @@ class SY_OT_SyUVFull(bpy.types.Operator):
                     bpy.ops.mesh.select_all(action='SELECT')
 
                     #Make sure at least two UVs exist
-                    UVLayerCount = len(bpy.context.object.data.uv_textures)
+                    UVLayerCount = len(bpy.context.object.data.uv_layers)
                     if UVLayerCount < 1:
                         bpy.ops.mesh.uv_texture_add()
                     if UVLayerCount < 2:
@@ -375,10 +375,10 @@ class SY_OT_SyUVFull(bpy.types.Operator):
 
                     #Go through Layers
                     if context.window_manager.RunRewrapT:
-                        bpy.context.object.data.uv_textures[0].active = True
+                        bpy.context.object.data.uv_layers[0].active = True
                         bpy.ops.uv.smart_project(island_margin = 0.1, stretch_to_bounds=False)
                     if context.window_manager.RunRewrapL:
-                        bpy.context.object.data.uv_textures[1].active = True
+                        bpy.context.object.data.uv_layers[1].active = True
                         bpy.ops.uv.smart_project(island_margin = 0.1, stretch_to_bounds=True)
 
                     #Return to StartMode
@@ -413,24 +413,24 @@ class SY_OT_SyUVKeepGroups(bpy.types.Operator):
                     bpy.context.view_layer.objects.active = iObject
 
                     #Duplicate UV
-                    if len(bpy.context.object.data.uv_textures) < 2:
+                    if len(bpy.context.object.data.uv_layers) < 2:
                         bpy.ops.mesh.uv_texture_add()
 
                     #Remap
                     bpy.ops.object.mode_set(mode='EDIT')
 
-                    bpy.context.area.type = 'IMAGE_EDITOR'
+                    bpy.context.area.ui_type = 'UV'
                     bpy.context.area.spaces.active.image = None
                     bpy.ops.uv.select_all(action='SELECT')
                     bpy.ops.uv.seams_from_islands()
 
-                    bpy.context.area.type = 'VIEW_3D'
+                    bpy.context.area.ui_type = 'VIEW_3D'
                     bpy.ops.uv.unwrap(method='CONFORMAL', margin=0.1)
 
-                    bpy.context.area.type = 'IMAGE_EDITOR'
+                    bpy.context.area.ui_type = 'UV'
                     bpy.context.area.spaces.active.image = None
                     bpy.ops.uv.pack_islands(margin=0.1)
-                    bpy.context.area.type = 'VIEW_3D'
+                    bpy.context.area.ui_type = 'VIEW_3D'
 
                     bpy.ops.object.mode_set(mode='OBJECT')
 
@@ -467,21 +467,21 @@ class SY_OT_SyRepackIslands(bpy.types.Operator):
                     bpy.ops.mesh.select_all(action='SELECT')
 
                     #Prepare PackIslands
-                    bpy.context.area.type = 'IMAGE_EDITOR'
+                    bpy.context.area.ui_type = 'UV'
                     bpy.context.area.spaces.active.image = None
 
                     #Pack Layers
                     if context.window_manager.RunPackT:
-                        bpy.context.object.data.uv_textures[0].active = True
+                        bpy.context.object.data.uv_layers[0].active = True
                         bpy.ops.uv.select_all(action='SELECT')
                         bpy.ops.uv.pack_islands(rotate= not context.window_manager.PackRotate, margin=context.window_manager.PackSize)
                     if context.window_manager.RunPackL:
-                        bpy.context.object.data.uv_textures[1].active = True
+                        bpy.context.object.data.uv_layers[1].active = True
                         bpy.ops.uv.select_all(action='SELECT')
                         bpy.ops.uv.pack_islands(rotate= not context.window_manager.PackRotate, margin=context.window_manager.PackSize)
 
                     #Return to StartMode
-                    bpy.context.area.type = 'VIEW_3D'
+                    bpy.context.area.ui_type = 'VIEW_3D'
                     bpy.ops.object.mode_set(mode='OBJECT')
             bpy.context.view_layer.objects.active = SelectedAtStart
 
