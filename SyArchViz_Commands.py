@@ -256,42 +256,6 @@ class SY_OT_SyGeometryClean(bpy.types.Operator):
         return {'FINISHED'}
 
 #************************************************************************************
-# SyGeometrySplit
-
-class SY_OT_SyGeometrySplit(bpy.types.Operator):
-    bl_idname = "object.sy_geometry_split"
-    bl_label = "Split Geometry (Sy)"
-
-    def execute(self, context):
-
-        ModeAtStart = bpy.context.object.mode
-        bpy.ops.object.mode_set(mode='OBJECT')
-        SelectedAtStart = bpy.context.view_layer.objects.active
-
-        #Iterate through Objects
-        ObjectsToSetUp = bpy.context.selected_objects
-        if len(ObjectsToSetUp) > 0:
-            for iObject in ObjectsToSetUp:
-                if iObject.type == 'MESH':
-
-                    #Set Object Active
-                    bpy.context.view_layer.objects.active = iObject
-
-                    bpy.context.area.type = 'VIEW_3D'
-                    bpy.ops.object.mode_set(mode='EDIT')
-                    bpy.ops.mesh.select_all(action='SELECT')
-
-                    bpy.ops.mesh.separate(type='LOOSE')
-
-                    bpy.ops.object.mode_set(mode='OBJECT')
-
-        bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.context.view_layer.objects.active = SelectedAtStart
-        bpy.ops.object.mode_set(mode = ModeAtStart)
-
-        return {'FINISHED'}
-
-#************************************************************************************
 # SyModifiersBasic
 
 class SY_OT_SyModifiersBasic(bpy.types.Operator):
@@ -560,108 +524,6 @@ class SY_OT_SyFingRename(bpy.types.Operator):
 
         return {'FINISHED'}
 
-
-#************************************************************************************
-# Clean All Connections
-
-class SY_OT_SyCleanAllConnections(bpy.types.Operator):
-    bl_idname = "object.sy_clean_all_connections"
-    bl_label = "Cleans all Face Connections (Sy)"
-
-    def execute(self, context):
-
-        ModeAtStart = bpy.context.object.mode
-        bpy.ops.object.mode_set(mode='OBJECT')
-        SelectedAtStart = bpy.context.view_layer.objects.active
-
-        #Iterate through Objects
-        ObjectsToSetUp = bpy.context.selected_objects
-        if len(ObjectsToSetUp) > 0:
-            for iObject in ObjectsToSetUp:
-                if iObject.type == 'MESH':
-
-                    #Set Object Active
-                    bpy.context.view_layer.objects.active = iObject
-
-                    #Mode
-                    bpy.ops.object.mode_set(mode='EDIT')
-
-                    #Clean all
-                    IsDone = False;
-                    while not IsDone:
-                        #Hide selected faces
-                        bpy.ops.mesh.hide(unselected=False)
-
-                        #Still Polys visible?
-                        Mesh = bmesh.from_edit_mesh(iObject.data)
-                        UnhiddenPolys = [f for f in Mesh.faces if f.hide == False]
-                        if len(UnhiddenPolys) == 0:
-                            IsDone = True;
-                        else:
-                            #Select random face
-                            UnhiddenPolys[0].select = True;
-
-                            #Run CleanConnections
-                            bpy.ops.object.sy_clean_connections()
-
-                            #Hide Faces
-                            bpy.ops.mesh.hide(unselected=False)
-
-                    #Unhide all
-                    bpy.ops.mesh.reveal()
-
-
-                    #Mode
-                    bpy.ops.object.mode_set(mode='OBJECT')
-
-        bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.context.view_layer.objects.active = SelectedAtStart
-        bpy.ops.object.mode_set(mode = ModeAtStart)
-
-        return {'FINISHED'}
-
-
-#************************************************************************************
-# Clean Connections
-
-class SY_OT_SyCleanConnections(bpy.types.Operator):
-    bl_idname = "object.sy_clean_connections"
-    bl_label = "Cleans Face Connections (Sy)"
-
-    def execute(self, context):
-
-        #Get Data
-        iObject = bpy.context.view_layer.objects.active
-
-        #FaceMode
-        bpy.ops.mesh.select_mode(type="FACE") #VERT EDGE
-
-        #Linked
-        bpy.ops.mesh.select_linked(delimit={'SEAM'})
-
-        #Save selected
-        Mesh = bmesh.from_edit_mesh(iObject.data)
-        SelectedFaces = [f for f in Mesh.faces if f.select == True]
-
-        #Duplicate
-        bpy.ops.mesh.duplicate()
-
-        #Hide
-        bpy.ops.mesh.hide(unselected=False)
-
-        #Reselect
-        for f in SelectedFaces:
-            f.select = True
-
-        #Delete
-        bpy.ops.mesh.delete(type='FACE')
-
-        #Unhide
-        bpy.ops.mesh.reveal()
-
-        return {'FINISHED'}
-
-
 #************************************************************************************
 # Reduce Materials
 
@@ -734,7 +596,7 @@ class SY_OT_SyGetCurveLength(bpy.types.Operator):
 
         me.resolution_u = 48
 
-        mesh = aobj.to_mesh(scene=scn,apply_modifiers=True,settings='PREVIEW')
+        mesh = aobj.to_mesh()#scene=scn,apply_modifiers=True,settings='PREVIEW')
 
         bm = bmesh.new()
         bm.from_mesh(mesh, face_normals=True, use_shape_key=True)

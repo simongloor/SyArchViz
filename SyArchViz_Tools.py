@@ -54,13 +54,6 @@ class SY_PT_realtime_archviz_ui(bpy.types.Panel):
         box.label(text='Utility')
         col = box.column(align=True)
         row = col.row(align=True)
-        row.operator('object.sy_reduce_materials', text = "Reduce Materials")
-        row.operator('object.sy_geometry_split', text = "Split by Material")
-        row = col.row(align=True)
-        row.operator('object.sy_clean_connections', text = "Fix FaceConnections")
-        row.operator('object.sy_clean_all_connections', text = "Fix All")
-        col = box.column(align=True)
-        row = col.row(align=True)
         row.operator('object.sy_get_curve_length', text = "Print CurveLength")
         row.prop(context.window_manager, 'CurveLength', text = '')
 
