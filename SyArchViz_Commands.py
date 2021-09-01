@@ -376,10 +376,10 @@ class SY_OT_SyUVFull(bpy.types.Operator):
                     #Go through Layers
                     if context.window_manager.RunRewrapT:
                         bpy.context.object.data.uv_layers[0].active = True
-                        bpy.ops.uv.smart_project(island_margin = 0.1, stretch_to_bounds=False)
+                        bpy.ops.uv.smart_project(island_margin = 0.1, scale_to_bounds=False)
                     if context.window_manager.RunRewrapL:
                         bpy.context.object.data.uv_layers[1].active = True
-                        bpy.ops.uv.smart_project(island_margin = 0.1, stretch_to_bounds=True)
+                        bpy.ops.uv.smart_project(island_margin = 0.1, scale_to_bounds=True)
 
                     #Return to StartMode
                     bpy.ops.object.mode_set(mode='OBJECT')
