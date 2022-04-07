@@ -385,7 +385,8 @@ class SY_OT_SyUVFull(bpy.types.Operator):
                     bpy.ops.object.mode_set(mode='OBJECT')
 
         bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.context.view_layer.objects.active = SelectedAtStart
+        for iObject in ObjectsToSetUp:
+            iObject.select_set(state=True)
         bpy.ops.object.mode_set(mode = ModeAtStart)
 
         return {'FINISHED'}
@@ -435,7 +436,8 @@ class SY_OT_SyUVKeepGroups(bpy.types.Operator):
                     bpy.ops.object.mode_set(mode='OBJECT')
 
         bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.context.view_layer.objects.active = SelectedAtStart
+        for iObject in ObjectsToSetUp:
+            iObject.select_set(state=True)
         bpy.ops.object.mode_set(mode = ModeAtStart)
 
         return {'FINISHED'}
@@ -460,6 +462,7 @@ class SY_OT_SyRepackIslands(bpy.types.Operator):
                 if iObject.type == 'MESH':
 
                     #Set Object Active
+                    bpy.ops.object.select_all(action='DESELECT')
                     bpy.context.view_layer.objects.active = iObject
 
                     #Set right Mode and select
@@ -483,10 +486,10 @@ class SY_OT_SyRepackIslands(bpy.types.Operator):
                     #Return to StartMode
                     bpy.context.area.ui_type = 'VIEW_3D'
                     bpy.ops.object.mode_set(mode='OBJECT')
-            bpy.context.view_layer.objects.active = SelectedAtStart
 
         bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.context.view_layer.objects.active = SelectedAtStart
+        for iObject in ObjectsToSetUp:
+            iObject.select_set(state=True)
         bpy.ops.object.mode_set(mode = ModeAtStart)
 
         return {'FINISHED'}
