@@ -10,31 +10,22 @@ import os
 
 ##########################################################
 # draw UI ButtonS
-class SY_PT_realtime_archviz_asset_pipeline_ui(bpy.types.Panel):
-    bl_idname = "ArchViz_AssetPipeline"
+class SY_PT_realtime_archviz_asset_pipeline_ui(Panel):
+    bl_idname = "SY_PT_archviz_asset_pipeline"
     bl_label = 'ArchViz | AssetPipeline'
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_category = "SY | flow"
 
-    def __init__(self):
-        pass
-
     @classmethod
-    def poll(self, context):
-        try:
-            # ob = context.active_object
-            # mode = context.mode
-            return 1#(ob.type == 'MESH')
-        except AttributeError:
-            return 0
+    def poll(cls, context):
+        return True
 
     def draw(self, context):
-
         layout = self.layout
 
         #Object
-        box = self.layout.box()
+        box = layout.box()
         box.label(text='Object')
         col = box.column(align=True)
         # row = col.row(align=True)
@@ -61,7 +52,7 @@ class SY_PT_realtime_archviz_asset_pipeline_ui(bpy.types.Panel):
         #row.operator('object.sy_golden', text = 'We Are Golden!', icon = 'TRIA_RIGHT')
 
         #UV
-        box = self.layout.box()
+        box = layout.box()
         box.label(text='UV')
         col = box.column(align=True)
         row = col.row(align=True)
@@ -155,3 +146,14 @@ def clear_properties():
             del x
         except:
             pass
+
+def register():
+    init_properties()
+    bpy.utils.register_class(SY_PT_realtime_archviz_asset_pipeline_ui)
+
+def unregister():
+    clear_properties()
+    bpy.utils.unregister_class(SY_PT_realtime_archviz_asset_pipeline_ui)
+
+if __name__ == "__main__":
+    register()

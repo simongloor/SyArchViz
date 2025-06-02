@@ -10,53 +10,41 @@ import os
 
 ##########################################################
 # draw UI ButtonS
-class SY_PT_realtime_archviz_ui(bpy.types.Panel):
-    bl_idname = "ArchViz_Tools"
+class SY_PT_realtime_archviz_ui(Panel):
+    bl_idname = "SY_PT_archviz_tools"
     bl_label = 'ArchViz'
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_category = "SY | flow"
 
-    def __init__(self):
-        pass
-
     @classmethod
-    def poll(self, context):
-        try:
-            ob = context.active_object
-            mode = context.mode
-            return 1#(ob.type == 'MESH')
-        except AttributeError:
-            return 0
+    def poll(cls, context):
+        return True
 
     def draw(self, context):
-
         layout = self.layout
 
         # #Import
-        # box = self.layout.box()
+        # box = layout.box()
         # box.label(text='Import')
         # col = box.column(align=True)
         # row = col.row(align=True)
         #row.operator('object.sy_import_3ds_c4d', text = 'Fix: 3DS | C4D')
 
-
         #Architecture
-        box = self.layout.box()
+        box = layout.box()
         box.label(text='Building')
         col = box.column(align=True)
         row = col.row(align=True)
         row.operator('object.sy_building_clean', text = 'Clean')
 
-
         #Utility
-        box = self.layout.box()
+        box = layout.box()
         box.label(text='Utility')
         col = box.column(align=True)
         row = col.row(align=True)
         row.operator('object.sy_get_curve_length', text = "Print CurveLength")
         row.prop(context.window_manager, 'CurveLength', text = '')
-
 
         #Turn eachother on and off
         HasChanged = False
@@ -82,7 +70,6 @@ class SY_PT_realtime_archviz_ui(bpy.types.Panel):
 
 # init properties
 def init_properties():
-
     bpy.types.WindowManager.CurveLength = bpy.props.FloatProperty(default=0.00, step=1)
 
 # clear properties
@@ -96,3 +83,14 @@ def clear_properties():
             del x
         except:
             pass
+
+def register():
+    init_properties()
+    bpy.utils.register_class(SY_PT_realtime_archviz_ui)
+
+def unregister():
+    clear_properties()
+    bpy.utils.unregister_class(SY_PT_realtime_archviz_ui)
+
+if __name__ == "__main__":
+    register()
